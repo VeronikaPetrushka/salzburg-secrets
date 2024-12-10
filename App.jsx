@@ -16,6 +16,8 @@ import ModeScreen from './src/screens/ModeScreen';
 import TopicsScreen from './src/screens/TopicsScreen';
 import DiscoveryQuizScreen from './src/screens/DiscoveryQuizScreen';
 import LegendsQuizScreen from './src/screens/LegendsQuizScreen';
+import ArchiveScreen from './src/screens/ArchiveScreen';
+import MoreScreen from './src/screens/MoreScreen';
 
 import WelcomeModal from './src/components/WelcomeModal';
 
@@ -112,6 +114,16 @@ const App = () => {
                             <Stack.Screen 
                                 name="LegendsQuizScreen" 
                                 component={LegendsQuizScreen} 
+                                options={{ headerShown: false }} 
+                            />
+                            <Stack.Screen 
+                                name="ArchiveScreen" 
+                                component={ArchiveScreen} 
+                                options={{ headerShown: false }} 
+                            />
+                            <Stack.Screen 
+                                name="MoreScreen" 
+                                component={MoreScreen} 
                                 options={{ headerShown: false }} 
                             />
                         </Stack.Navigator>

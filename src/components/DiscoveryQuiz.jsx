@@ -11,11 +11,13 @@ const DiscoveryQuiz = ({ quiz }) => {
     const navigation = useNavigation();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState(null);
+    const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
     const [timeLeft, setTimeLeft] = useState(150);
     const [progress, setProgress] = useState(1);
     const [lives, setLives] = useState(3);
     const [totalScore, setTotalScore] = useState(0);
     const [score, setScore] = useState(0);
+    const [archive, setArchive] = useState([]);
 
     const [factModalVisible, setFactModalVisible] = useState(false);
     const [factContent, setFactContent] = useState({ title: '', description: '' });
@@ -56,6 +58,16 @@ const DiscoveryQuiz = ({ quiz }) => {
             setCurrentQuestionIndex(null);
         }
     }, [timeLeft, currentQuestionIndex]);
+
+    useEffect(() => {
+        const fetchArchive = async () => {
+            const storedArchive = await AsyncStorage.getItem("archive");
+            if (storedArchive) {
+                setArchive(JSON.parse(storedArchive));
+            }
+        };
+        fetchArchive();
+    }, [factModalVisible]);
     
     const currentQuestion = currentQuestionIndex !== null ? quiz.questions[currentQuestionIndex] : null;
 
@@ -64,6 +76,7 @@ const DiscoveryQuiz = ({ quiz }) => {
     
         if (option === currentQuestion.correctOption) {
             setScore((prevScore) => prevScore + 100);
+            setCorrectAnswersCount((prevCount) => prevCount + 1);
         } else {
             setScore((prevScore) => Math.max(0, prevScore - 50));
             setLives((prevLives) => prevLives - 1);
@@ -115,14 +128,10 @@ const DiscoveryQuiz = ({ quiz }) => {
     ) : [];     
 
     const handleFactPress = () => {
-        const correctAnswers = quiz.questions.filter(
-            (q, index) => q.correctOption === selectedOption
-        ).length;
-    
-        const isHighScore = (correctAnswers / quiz.questions.length) >= 0.8;
+        const isHighScore = (correctAnswersCount / quiz.questions.length) >= 0.8;
     
         if (isHighScore) {
-            setFactContent({ title: quiz.topic, description: quiz.description });
+            setFactContent({ title: quiz.title, description: quiz.description });
         } else {
             const randomLoseFact = lose[Math.floor(Math.random() * lose.length)];
             setFactContent({ title: randomLoseFact.title, description: randomLoseFact.description });
@@ -131,6 +140,24 @@ const DiscoveryQuiz = ({ quiz }) => {
         setFactModalVisible(true);
     };
 
+    const handleArchiveToggle = async () => {
+        const isInArchive = archive.some(
+            (item) => item.title === factContent.title && item.description === factContent.description
+        );
+    
+        let updatedArchive;
+        if (isInArchive) {
+            updatedArchive = archive.filter(
+                (item) => item.title !== factContent.title || item.description !== factContent.description
+            );
+        } else {
+            updatedArchive = [...archive, { title: factContent.title, description: factContent.description }];
+        }
+    
+        setArchive(updatedArchive);
+        await AsyncStorage.setItem("archive", JSON.stringify(updatedArchive));
+    };
+    
     const handleTryAgain = () => {
         setLives(3);
         setScore(0);
@@ -139,7 +166,11 @@ const DiscoveryQuiz = ({ quiz }) => {
         setProgress(1);
         setSelectedOption(null);
         setFilteredOptions([]);
+        setFactContent({ title: '', description: '' });
+        setCorrectAnswersCount(0);
     }
+
+    console.log(archive)
     
     return (
         <ImageBackground source={require('../assets/back/1.png')} style={{flex: 1, transform: [{ rotate: '180deg' }]}}>
@@ -226,7 +257,8 @@ const DiscoveryQuiz = ({ quiz }) => {
                     </>
                 ) : (
                     <View style={{alignItems: 'center', width: '100%'}}>
-                        <Text style={styles.completedText}>Quiz Completed!</Text>
+                        <Text style={[styles.completedText, {marginBottom: height * 0.015}]}>Well played !</Text>
+                        <Text style={styles.completedText}>Try again and aim for a better score !</Text>
                         <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: height * 0.01}}>
                             <Text style={[styles.score, {fontSize: 26}]}>{totalScore}</Text>
                             <View style={{width: 40, height: 40}}>
@@ -254,7 +286,7 @@ const DiscoveryQuiz = ({ quiz }) => {
                     onRequestClose={() => setFactModalVisible(false)}
                 >
                     <View style={styles.modalContainer}>
-                        <View style={[styles.modalContent, factContent === ({ title: quiz.topic, description: quiz.description }) && {height: '70%'}]}>
+                        <View style={[styles.modalContent, factContent.title === quiz.title && factContent.description === quiz.description && { height: '70%' }]}>
                             <TouchableOpacity
                                 style={styles.modalCloseButton}
                                 onPress={() => setFactModalVisible(false)}
@@ -264,6 +296,23 @@ const DiscoveryQuiz = ({ quiz }) => {
                             <ScrollView>
                                 <Text style={styles.modalTitle}>{factContent.title}</Text>
                                 <Text style={styles.modalDescription}>{factContent.description}</Text>
+                                {
+                                    factContent.title === quiz.title && factContent.description === quiz.description && (
+                                        <TouchableOpacity style={styles.archiveBtn} onPress={handleArchiveToggle}>
+                                            <Text style={styles.archiveBtnText}>{archive.some(
+                                                (item) =>
+                                                    item.title === factContent.title &&
+                                                    item.description === factContent.description
+                                            )
+                                                ? "Remove from Archive"
+                                                : "Add to Archive"}
+                                            </Text>
+                                            <View style={styles.scoreIcon}>
+                                                <Icons type={'archive'} />
+                                            </View>
+                                        </TouchableOpacity>    
+                                    )
+                                }
                             </ScrollView>
                         </View>
                     </View>
@@ -517,6 +566,24 @@ const styles = StyleSheet.create({
         color: '#555',
         textAlign: 'center',
         marginBottom: 20,
+    },
+    archiveBtn: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 30,
+        borderColor: '#064704',
+        borderWidth: 2,
+        backgroundColor: '#70e36d',
+        padding: 7,
+        alignSelf: 'center'
+    },
+    archiveBtnText: {
+        color: '#064704',
+        fontSize: 16,
+        fontWeight: '900',
+        marginRight: 10
     },
     modalCloseButton: {
         width: 30,

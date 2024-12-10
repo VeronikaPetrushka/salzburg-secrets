@@ -217,7 +217,8 @@ const LegendsQuiz = ({ quiz }) => {
                     </>
                 ) : (
                     <View style={{alignItems: 'center', width: '100%'}}>
-                        <Text style={styles.completedText}>Quiz Completed!</Text>
+                        <Text style={[styles.completedText, {marginBottom: height * 0.015}]}>Well played !</Text>
+                        <Text style={styles.completedText}>Try again and aim for a better score !</Text>
                         <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: height * 0.01}}>
                             <Text style={[styles.score, {fontSize: 26}]}>{totalScore}</Text>
                             <View style={{width: 40, height: 40}}>

@@ -71,7 +71,7 @@ const Achievements = () => {
   const handleShare = async () => {
     try {
       const result = await Share.share({
-        message: `Look, I scored ${totalScore} points at 'Inspire life to win'! Can you beat my score? Join and find what inspires you !`,
+        message: `Look, I scored ${totalScore} points at 'Salzburg: City of Secrets'! Can you beat my score? Join and find out hidden gems of Salzburg !`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -104,7 +104,7 @@ const Achievements = () => {
             data={users}
             renderItem={({ item }) => (
             <View style={styles.userContainer}>
-                <Image source={item.avatar} style={{width: 60, height: 60}} />
+                <Image source={item.avatar} style={{width: 50, height: 50}} />
                 <Text style={styles.userName}>{item.name}</Text>
                 <Text style={styles.userScore}>{item.score}</Text>
             </View>
@@ -114,7 +114,7 @@ const Achievements = () => {
         />
 
         <TouchableOpacity style={styles.shareButton} onPress={handleShare}>
-            <Text style={styles.shareButtonText}>Share Your Score</Text>
+            <Text style={styles.shareButtonText}>Share reached score</Text>
         </TouchableOpacity>
         </View>
     </ImageBackground>
@@ -153,13 +153,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   userContainer: {
-    width: width * 0.41,
-    height: height * 0.25,
+    width: height * 0.23,
+    height: height * 0.23,
     padding: 15,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius: 10,
+    borderRadius: 120,
+    borderWidth: 3,
+    borderColor: '#19a616',
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   userName: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
     color: '#065201',
     textAlign: 'center'
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
     fontWeight: '800'
   },
   shareButton: {
-    width: 200,
+    width: 220,
     backgroundColor: '#65fc5b',
     borderRadius: 25,
     paddingVertical: 10,
