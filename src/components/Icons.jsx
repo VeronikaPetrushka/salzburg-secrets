@@ -51,6 +51,12 @@ const Icons = ({ type }) => {
     case 'plus':
       imageSource = require('../assets/common/plus.png');
       break;
+    case 'try-again':
+      imageSource = require('../assets/common/try-again.png');
+      break;
+    case 'fact':
+      imageSource = require('../assets/common/fact.png');
+      break;
   }
 
   return (
