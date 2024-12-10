@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions, ImageBa
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
-const { height } = Dimensions.get("window");
+const { height, width } = Dimensions.get("window");
 
 const Archive = () => {
     const navigation = useNavigation();
@@ -126,7 +126,12 @@ const Archive = () => {
                         contentContainerStyle={styles.listContainer}
                     />
                 ) : (
-                    <Text style={styles.noItemsText}>No items in the archive</Text>
+                    <View style={{width: '100%', alignItems: 'center'}}>
+                        <Text style={styles.noItemsText}>No items in the archive yet. Complete successfully Discover quizzes and save favorite stories and facts to Archive !</Text>
+                        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("TopicsScreen", { difficulty: "discovery" })}>
+                            <Text style={styles.btnText}>Discovery mode</Text>
+                        </TouchableOpacity>
+                    </View>
                 )}
                 {selectedItem && (
                     <Modal
@@ -177,10 +182,18 @@ const styles = StyleSheet.create({
         transform: [{ rotate: "180deg" }],
     },
     title: {
-        fontSize: 26,
-        fontWeight: "900",
-        color: "#7de075",
+        fontWeight: '900',
+        fontSize: 30,
+        textAlign: 'center',
         marginBottom: height * 0.05,
+        color: '#7de075',
+    },
+    noItemsText: {
+        fontSize: 20,
+        fontWeight: "600",
+        color: "#89cc93",
+        textAlign: "center",
+        marginBottom: height * 0.05
     },
     listContainer: {
         width: "100%",
@@ -265,6 +278,22 @@ const styles = StyleSheet.create({
         fontWeight: "800",
         color: "#fff",
     },
+    btn: {
+        width: width * 0.8,
+        padding: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 30,
+        borderWidth: 2,
+        borderColor: '#306e29',
+        backgroundColor: '#63cc58',
+    },
+
+    btnText: {
+        fontSize: 18,
+        fontWeight: '800',
+        color: '#306e29',
+    }
 });
 
 export default Archive;

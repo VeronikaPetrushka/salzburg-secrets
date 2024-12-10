@@ -17,8 +17,7 @@ const Settings = () => {
     const [errorName, setErrorName] = useState("");
     const [errorAge, setErrorAge] = useState("");
   
-    useEffect(() => {
-      const loadProfile = async () => {
+    const loadProfile = async () => {
         try {
           const storedData = await AsyncStorage.getItem('userProfile');
           const storedImageUri = await AsyncStorage.getItem('uploadedImage');
@@ -46,9 +45,12 @@ const Settings = () => {
           console.error('Error loading user profile:', error);
         }
       };
-  
-        loadProfile();
 
+      useEffect(() => {  
+
+        loadProfile();
+        loadSettings();
+        
     }, []);
   
     const handleNameChange = (text) => {
@@ -80,7 +82,6 @@ const Settings = () => {
   
         console.log('User profile saved successfully!');
         setButtonText("Save changes");
-        onClose();
       } catch (error) {
         console.error('Error saving user profile:', error);
       }
@@ -102,8 +103,7 @@ const Settings = () => {
       );
     };  
 
-    useEffect(() => {
-        const loadSettings = async () => {
+    const loadSettings = async () => {
             try {
                 const storedVibration = await AsyncStorage.getItem('vibrationEnabled');
                 if (storedVibration !== null) {
@@ -113,10 +113,6 @@ const Settings = () => {
                 console.log('Error loading settings:', error);
             }
         };
-
-        loadSettings();
-
-    }, []);
 
     const handleToggleLoudness = async () => {
         togglePlay();
@@ -143,6 +139,10 @@ const Settings = () => {
             await AsyncStorage.removeItem('totalScore');
             await AsyncStorage.removeItem('archive');
             await AsyncStorage.removeItem('purchasedItems');
+            await AsyncStorage.removeItem('ingredients');
+            await AsyncStorage.removeItem('preparation');
+            await AsyncStorage.removeItem('purchasedStories');
+            await AsyncStorage.removeItem('rewardTimer');
 
             setShowResetConfirmation(false);
 
@@ -153,6 +153,10 @@ const Settings = () => {
             if (vibrationEnabled) {
                 Vibration.vibrate();
             }
+
+            await loadProfile(); 
+            await loadSettings();
+
         } catch (error) {
             console.error('Error resetting progress:', error);
             Alert.alert('Error', 'There was a problem resetting your progress. Please try again later.');
@@ -214,7 +218,7 @@ const Settings = () => {
                             </View>
 
                             <View style={styles.regulatorContainer}>
-                                <View style={[{width: 60, height: 60}, !isPlaying && {opacity: 0.5}]}>
+                                <View style={[{width: 60, height: 60}, !isPlaying && {opacity: 0.4}]}>
                                     <Icons type={'music'} />
                                 </View>
                                 <Text style={[styles.toggleText, isPlaying ? styles.toggleTextOn : styles.toggleTextOff]}>
@@ -226,7 +230,7 @@ const Settings = () => {
                             </View>
 
                             <View style={styles.regulatorContainer}>
-                                <View style={[{width: 60, height: 60}, !isPlaying && {opacity: 0.5}]}>
+                                <View style={[{width: 60, height: 60}, !vibrationEnabled && {opacity: 0.4}]}>
                                     <Icons type={'vibration'} />
                                 </View>
                                 <Text style={[styles.toggleText, vibrationEnabled ? styles.toggleTextOn : styles.toggleTextOff]}>
@@ -267,7 +271,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: '900',
-        fontSize: 34,
+        fontSize: 30,
         textAlign: 'center',
         marginBottom: height * 0.06,
         color: '#7de075',
@@ -295,7 +299,7 @@ const styles = StyleSheet.create({
         borderColor: '#19fa02',
     },
     toggleContainerOff: {
-        borderColor: '#8e7e8a',
+        borderColor: '#728f77',
     },
     toggleText: {
         fontSize: 16,
@@ -304,7 +308,7 @@ const styles = StyleSheet.create({
         color: '#19fa02',
     },
     toggleTextOff: {
-        color: '#8e7e8a',
+        color: '#728f77',
     },
     toggle: {
         borderRadius: 30,
@@ -316,7 +320,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
     },
     toggleOff: {
-        backgroundColor: '#8e7e8a',
+        backgroundColor: '#728f77',
         alignSelf: 'flex-start',
     },
     btnText: {
