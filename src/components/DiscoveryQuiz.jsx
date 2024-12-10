@@ -286,7 +286,7 @@ const DiscoveryQuiz = ({ quiz }) => {
                     onRequestClose={() => setFactModalVisible(false)}
                 >
                     <View style={styles.modalContainer}>
-                        <View style={[styles.modalContent, factContent.title === quiz.title && factContent.description === quiz.description && { height: '70%' }]}>
+                        <View style={[styles.modalContent, factContent.title === quiz.title && factContent.description === quiz.description && { height: height * 0.5 }]}>
                             <TouchableOpacity
                                 style={styles.modalCloseButton}
                                 onPress={() => setFactModalVisible(false)}
@@ -437,8 +437,7 @@ const styles = StyleSheet.create({
     timerText: {
         position: "absolute",
         top: 0,
-        left: "50%",
-        transform: [{ translateX: -165 }],
+        left: 0,
         fontSize: 14,
         fontWeight: "900",
         color: "#3a6637",

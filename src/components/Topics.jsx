@@ -5,7 +5,7 @@ import discovery from '../constants/discovery';
 import legends from '../constants/legends';
 import Icons from './Icons';
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 const Topics = ({ difficulty }) => {
     const navigation = useNavigation();
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
 
     btnBox: {
-        width: '47%',
+        width: width * 0.43,
         height: height * 0.3,
         alignItems: 'center',
         justifyContent: 'flex-start',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 
     btn: {
         width: '100%',
-        height: height * 0.23,
+        height: width * 0.43,
         borderRadius: 100,
         borderWidth: 3,
         borderColor: '#306e29',
