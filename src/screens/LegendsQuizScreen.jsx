@@ -1,10 +1,12 @@
 import { View } from "react-native"
-import Achievements from "../components/Achievements"
+import LegendsQuiz from "../components/LegendsQuiz"
 
-const AchievementsScreen = () => {
+const LegendsQuizScreen = ({route}) => {
+    const { quiz } = route.params;
+
     return (
         <View style={styles.container}>
-            <Achievements />
+            <LegendsQuiz quiz={quiz} />
         </View>
     )
 }; 
@@ -16,4 +18,4 @@ const styles = {
     }
 }
 
-export default AchievementsScreen;
+export default LegendsQuizScreen;

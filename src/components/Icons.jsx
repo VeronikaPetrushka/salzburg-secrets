@@ -39,6 +39,18 @@ const Icons = ({ type }) => {
       imageSource = require('../assets/common/vibration.png');
       iconStyle.push(styles.light);
       break;
+    case 'score':
+      imageSource = require('../assets/common/score.png');
+      break;
+    case 'hint':
+      imageSource = require('../assets/common/hint.png');
+      break;
+    case 'live':
+      imageSource = require('../assets/common/live.png');
+      break;
+    case 'plus':
+      imageSource = require('../assets/common/plus.png');
+      break;
   }
 
   return (

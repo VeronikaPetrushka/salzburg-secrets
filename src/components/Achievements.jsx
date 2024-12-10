@@ -25,8 +25,21 @@ const Achievements = () => {
   const [users, setUsers] = useState([]);
 
   const generateRandomName = () => {
-    const firstNames = ['John', 'Jane', 'Alex', 'Chris', 'Taylor', 'Jordan', 'Sam', 'Avery', 'Casey', 'Morgan'];
-    const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Martinez', 'Davis', 'Miller', 'Wilson'];
+    const firstNames = [
+        'Sophia', 'Emma', 'Isabella', 'Olivia', 'Ava', 'Mia', 
+        'Charlotte', 'Amelia', 'Harper', 'Evelyn', 'Aria', 'Scarlett', 
+        'Luna', 'Layla', 'Zoe', 'Lily', 'Ella', 'Chloe', 
+        'Aubrey', 'Aurora', 'Violet', 'Penelope', 'Hazel', 'Sadie', 
+        'Paisley', 'Ellie', 'Nora', 'Isla', 'Mila', 'Rose'
+    ];
+        
+    const lastNames = [
+        'Anderson', 'Thomas', 'Taylor', 'White', 'Harris', 'Clark', 
+        'Lewis', 'Young', 'Walker', 'Hall', 'Allen', 'King', 
+        'Wright', 'Scott', 'Green', 'Adams', 'Baker', 'Gonzalez',
+        'Nelson', 'Carter', 'Mitchell', 'Perez', 'Roberts', 'Turner',
+        'Phillips', 'Campbell', 'Parker', 'Evans', 'Edwards', 'Collins'
+    ];
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
     return `${firstName} ${lastName}`;
@@ -80,7 +93,12 @@ const Achievements = () => {
         <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
             <Icons type={"home"} />
         </TouchableOpacity>
-        <Text style={styles.totalScore}>{totalScore}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: height * 0.03}}>
+            <Text style={styles.totalScore}>{totalScore}</Text>
+            <View style={{width: 40, height: 40, marginLeft: 10}}>
+                <Icons type={'score'} />
+            </View>
+        </View>
         
         <FlatList
             data={users}
@@ -123,10 +141,9 @@ const styles = StyleSheet.create({
       zIndex: 10,
     },
   totalScore: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#e75da5',
-    marginBottom: height * 0.03,
+    fontSize: 26,
+    fontWeight: '900',
+    color: '#65fc5b',
   },
   list: {
     width: width * 0.87,
@@ -152,7 +169,7 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#6c1b45',
+    color: '#065201',
     textAlign: 'center'
   },
   userScore: {
@@ -162,16 +179,18 @@ const styles = StyleSheet.create({
   },
   shareButton: {
     width: 200,
-    backgroundColor: '#e75da5',
+    backgroundColor: '#65fc5b',
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 20,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#065201'
   },
   shareButtonText: {
-    color: '#fff',
+    color: '#065201',
     fontWeight: '800',
     fontSize: 16,
   },

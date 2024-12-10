@@ -1,10 +1,12 @@
 import { View } from "react-native"
-import Achievements from "../components/Achievements"
+import Topics from "../components/Topics"
 
-const AchievementsScreen = () => {
+const TopicsScreen = ({route}) => {
+    const { difficulty } = route.params;
+
     return (
         <View style={styles.container}>
-            <Achievements />
+            <Topics difficulty={difficulty} />
         </View>
     )
 }; 
@@ -16,4 +18,4 @@ const styles = {
     }
 }
 
-export default AchievementsScreen;
+export default TopicsScreen;

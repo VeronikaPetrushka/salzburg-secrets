@@ -117,7 +117,7 @@ const WelcomeModal = ({ visible, onClose }) => {
                         <>
                             {timer ? (
                                 <>
-                                    <Text style={styles.modalText}>
+                                    <Text style={[styles.modalText, {color: '#306e29', fontWeight: '600'}]}>
                                         Next reward will be available in {timeRemaining}
                                     </Text>
                                     <TouchableOpacity style={styles.closeButton} onPress={onClose}>
@@ -129,7 +129,7 @@ const WelcomeModal = ({ visible, onClose }) => {
                                     <Text style={[styles.modalText, { color: '#46a33c', fontWeight: '700', marginBottom: 20 }]}>
                                         Congratulations!
                                     </Text>
-                                    <Text style={styles.modalText}>
+                                    <Text style={[styles.modalText, {color: '#306e29', fontWeight: '600'}]}>
                                         Claim your reward to unlock more regions and uncover the secrets of Salzburg!
                                     </Text>
                                     <TouchableOpacity style={styles.closeButton} onPress={handleNextStep}>
@@ -142,7 +142,7 @@ const WelcomeModal = ({ visible, onClose }) => {
 
                     {step === 5 && (
                         <>
-                            <Text style={styles.modalText}>
+                            <Text style={[styles.modalText, {color: '#306e29', fontWeight: '600'}]}>
                                 You have earned a bonus of {bonus} points! Your total score has been updated.
                             </Text>
                             <TouchableOpacity style={styles.closeButton} onPress={onClose}>

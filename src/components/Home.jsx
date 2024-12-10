@@ -16,7 +16,7 @@ const Home = () => {
 
                 <Text style={styles.title}>Salzburg: City of secrets</Text>
 
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('ModeScreen')}>
                     <Text style={styles.btnText}>Reveal secrets</Text>
                 </TouchableOpacity>
 

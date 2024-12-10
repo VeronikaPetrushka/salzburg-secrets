@@ -1,10 +1,10 @@
 import { View } from "react-native"
-import Achievements from "../components/Achievements"
+import Mode from "../components/Mode"
 
-const AchievementsScreen = () => {
+const ModeScreen = () => {
     return (
         <View style={styles.container}>
-            <Achievements />
+            <Mode />
         </View>
     )
 }; 
@@ -16,4 +16,4 @@ const styles = {
     }
 }
 
-export default AchievementsScreen;
+export default ModeScreen;

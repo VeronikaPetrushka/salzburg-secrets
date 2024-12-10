@@ -12,6 +12,9 @@ import MusicPlayer from './src/components/MusicPlayer';
 import HomeScreen from './src/screens/HomeScreen';
 import AchievementsScreen from './src/screens/AchievementsScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import ModeScreen from './src/screens/ModeScreen';
+import TopicsScreen from './src/screens/TopicsScreen';
+import DiscoveryQuizScreen from './src/screens/DiscoveryQuizScreen';
 
 import WelcomeModal from './src/components/WelcomeModal';
 
@@ -88,6 +91,21 @@ const App = () => {
                             <Stack.Screen 
                                 name="SettingsScreen" 
                                 component={SettingsScreen} 
+                                options={{ headerShown: false }} 
+                            />
+                            <Stack.Screen 
+                                name="ModeScreen" 
+                                component={ModeScreen} 
+                                options={{ headerShown: false }} 
+                            />
+                            <Stack.Screen 
+                                name="TopicsScreen" 
+                                component={TopicsScreen} 
+                                options={{ headerShown: false }} 
+                            />
+                            <Stack.Screen 
+                                name="DiscoveryQuizScreen" 
+                                component={DiscoveryQuizScreen} 
                                 options={{ headerShown: false }} 
                             />
                         </Stack.Navigator>
