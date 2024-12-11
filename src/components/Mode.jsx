@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icons from './Icons';
@@ -7,12 +7,11 @@ const { height, width } = Dimensions.get('window');
 
 const Mode = () => {
     const navigation = useNavigation();
-    const [selectedMode, setSelectedMode] = useState(null);
 
-    const handleProceed = () => {
-        if (selectedMode === "discovery") {
+    const handleProceed = (mode) => {
+        if (mode === "discovery") {
           navigation.navigate("TopicsScreen", { difficulty: "discovery" });
-        } else if (selectedMode === "legends") {
+        } else if (mode === "legends") {
           navigation.navigate("TopicsScreen", { difficulty: "legends" });
         }
       };    
@@ -26,11 +25,11 @@ const Mode = () => {
 
                 <Text style={styles.title}>Select your game mode</Text>
 
-                <TouchableOpacity style={styles.btn} onPress={() => {setSelectedMode("discovery"), handleProceed()}}>
+                <TouchableOpacity style={styles.btn} onPress={() => handleProceed("discovery")}>
                     <Text style={styles.btnText}>Discovery mode</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.btn} onPress={() => {setSelectedMode("legends"), handleProceed()}}>
+                <TouchableOpacity style={styles.btn} onPress={() => handleProceed("legends")}>
                     <Text style={styles.btnText}>Legend's path</Text>
                 </TouchableOpacity>
 
