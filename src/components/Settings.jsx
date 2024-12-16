@@ -165,7 +165,7 @@ const Settings = () => {
     };
 
     return (
-        <ImageBackground source={require('../assets/back/1.png')} style={{flex: 1, transform: [{ rotate: '180deg' }]}}>
+        <ImageBackground source={require('../assets/back/2.png')} style={{flex: 1, transform: [{ rotate: '180deg' }]}}>
             <View style={styles.container}>
                 {showResetConfirmation ? (
                     <>

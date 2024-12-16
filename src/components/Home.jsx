@@ -10,7 +10,7 @@ const Home = () => {
     const [aboutModalVisible, setAboutModalVisible] = useState(false);
 
     return (
-        <ImageBackground source={require('../assets/back/1.png')} style={{flex: 1, transform: [{ rotate: '180deg' }]}}>
+        <ImageBackground source={require('../assets/back/2.png')} style={{flex: 1, transform: [{ rotate: '180deg' }]}}>
             <View style={styles.container}>
                 <Image style={styles.image} source={require('../assets/decor/1.png')} />
 
